@@ -1,4 +1,4 @@
-![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/IMG_0067.JPG)
+![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/razbot.png)
 
 This project will demonstrate controlling a Raspberry Pi 3 based robot using [ZeroMQ](http://zeromq.org/), [pigpio](http://abyz.co.uk/rpi/pigpio/) and a [Kivy](https://kivy.org/#home) GUI.
 

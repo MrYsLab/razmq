@@ -1,0 +1,157 @@
+#:kivy 1.9.1
+
+<MainWidget>:
+    # create a main widget that is the size of the root
+    # we will add things vertically to this boxlayout.
+    # all additions are placed in horizontal boxlayouts and then added to this layout.
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        # set title
+        BoxLayout:
+            padding_top: 20
+            Label:
+                text: 'Motor Control'
+                font_size: 40
+
+        # set distance label and length labels
+        BoxLayout:
+            padding: 6
+            # orientation: 'horizontal'
+            Label:
+                text_size: (475, None)
+                halign: 'right'
+
+                font_size: '25sp'
+                id: distance_label
+                text: 'Distance Traveled (in inches) : '
+                on_touch_down: root.update_robot_distance('0.000')
+                on_touch_down: app.reset_distance()
+
+            Label:
+                # the next two lines keeps the text left justified as it changes
+                text_size: (300, None)
+                halign: 'left'
+                font_size: '25sp'
+                id: distance_label
+                color: (.2,3,1, 1)
+                text: root.robot_distance
+        # forward button
+        BoxLayout:
+            # orientation: 'vertical'
+            padding: 15
+            # empty label for formatting purposes
+            Label:
+            ToggleButton:
+                id: forward_button
+                text: 'Forward'
+                # on_press: app.publish_payload("forwarder",  "topic")
+                on_press: app.forward_pressed(None)
+
+            # empty label for formatting purposes
+            Label:
+
+        # add left, stop and right ToggleButtons
+        BoxLayout:
+            padding: 15
+            # orientation: 'horizontal'
+
+            # empty label for formatting purposes
+            Label:
+            ToggleButton:
+                id: left_button
+                size_hint_x: None
+                width: 175
+                text: "Left"
+                on_press: app.left_pressed(None)
+
+            # empty label for formatting purposes
+            Label:
+            Button:
+                text: "Stop"
+                size_hint_x: None
+                width: 175
+                background_color: (4.0, 0.0, 0.0, 1.0)
+                id: stop_button
+                on_press: app.stop_pressed(None)
+                on_press: left_button.state='normal'
+                on_press: right_button.state='normal'
+                on_press: reverse_button.state='normal'
+                on_press: forward_button.state='normal'
+            # empty label for formatting purposes
+            Label:
+            #   background_color: (0.0, 0.0, 0.0, 1.0)
+            ToggleButton:
+                text: "Right"
+                size_hint_x: None
+                width: 175
+                id: right_button
+                on_press: app.right_pressed(None)
+
+            # empty label for formatting purposes
+            Label:
+
+        # add the reverse ToggleButton
+        BoxLayout:
+            padding: 15
+            orientation: 'horizontal'
+            Label:
+            ToggleButton:
+                text: 'Reverse'
+                id: reverse_button
+                on_press: app.reverse_pressed(None)
+
+            Label:
+
+        # add the 2 rotary speed knobs
+        BoxLayout:
+            padding:(120,0)
+            spacing: 350
+            Knob:
+                id: k1
+                size: 100, 100
+                min: 90
+                max: 255
+                step: 1
+                value: 0  # Default position of knob.
+                # value: k1.value
+                knobimg_source: "img/knob_metal.png"  # Knob texture
+                show_label: True  # Show central label
+                show_marker: True  # Show surrounding marker
+                marker_img: "img/bline.png" # Marker texture image
+                knob_size: 0.9  # Scales knob size to leave space for marker
+                markeroff_color: 0, 0, 0, 0
+                on_value: app.speed_value_change(k1.value)
+
+
+            Knob:
+                id: k2
+                size: 100, 100
+                min: 50
+                max: 255
+                step: 1
+                value: 0  # Default position of knob.
+                knobimg_source: "img/knob_metal.png"  # Knob texture
+                show_label: True  # Show central label
+                show_marker: True  # Show surrounding marker
+                marker_img: "img/bline.png" # Marker texture image
+                knob_size: 0.9  # Scales knob size to leave space for marker
+                markeroff_color: 0, 0, 0, 0
+                on_value: app.turn_speed_value_change(k2.value)
+
+        # add the labels for the knobs
+        BoxLayout:
+            spacing: 100
+
+            Label:
+                text: 'Forward/Reverse Speed'
+                color: (4.0, 3.0, 0.0, 1.0)
+                font_size: 20
+
+            Label:
+                text: 'Turn/Spin Speed'
+                color: (4.0, 3.0, 0.0, 1.0)
+                font_size: 20
+
+

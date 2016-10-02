@@ -1,0 +1,14 @@
+add_command(command="backplane", env={}, identifier="back_plane")
+add_command(command="buzzer", env={}, identifier="buzzer")
+add_command(command="buzzer_pigpio", env={}, identifier="buzzer_gpio")
+add_command(command="encoders_pigpio", env={}, identifier="encoders_gpio")
+add_command(command="i2c_pigpio", env={}, identifier="i2c_gpio")
+add_command(command="i2c_adxl345", env={}, identifier="adxl345")
+add_command(command="i2c_pcf8591", env={}, identifier="pcf8591")
+add_command(command="led_pigpio", env={}, identifier="led_pigpio")
+add_command(command="led", env={}, identifier="led")
+add_command(command="motors_pigpio", env={}, identifier="motors_pigpio")
+add_command(command="motors", env={}, identifier="motors")
+add_command(command="switches_gpio", env={}, identifier="switches_pigpio")
+
+

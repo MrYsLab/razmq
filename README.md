@@ -1,4 +1,4 @@
-![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/raspberry-pi-logo.png)# The Raspberry RedBot
+# The Raspberry RedBot
 
 ![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/razbot.png)
 

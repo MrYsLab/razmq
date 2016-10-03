@@ -32,17 +32,17 @@ class Buzzer(Razbase):
     A user may create a tone {'command': 'tone', 'frequency': FREQUENCY, 'duration': DURATION}
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
         """
 
-        :param router_ip_address:
-        :param subscriber_port:
-        :param publisher_port:
+        :param back_plane_ip_address: ip address of the backplane
+        :param subscriber_port: backplane subscriber port
+        :param publisher_port: backplane publisher port
 
         """
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
         # allow time for connection
         time.sleep(.03)
@@ -55,7 +55,6 @@ class Buzzer(Razbase):
     # noinspection PyMethodMayBeStatic
     def incoming_message_processing(self, topic, payload):
         """
-        Override this method with a message processor for the application
 
         :param topic: Message Topic string
         :param payload: Message Data
@@ -105,8 +104,6 @@ def buzzer():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     buzzer()
 

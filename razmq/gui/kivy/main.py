@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 import socket
 import sys
 import time
-import argparse
 
 import umsgpack
 import zmq
@@ -48,42 +47,33 @@ class MainWidget(Widget):
 
 
 class RazmqControlApp(App):
-    def __init__(self, back_plane_ip_address="192.168.2.189", subscriber_port='43125', publisher_port='43124',
-                 ):
+    back_plane_ip_address = None
+    subscriber_port = '43125'
+    publisher_port = '43124'
+
+    def __init__(self):
         # print('control init')
         super().__init__()
 
         self.distance_traveled = 0.0
         self.stop_time = 0
         self.speed = 90
-        # If no router address was specified, determine the IP address of the local machine
-        # If no router address was specified, determine the IP address of the local machine
-        if back_plane_ip_address:
-            self.router_ip_address = back_plane_ip_address
-        else:
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            # use the google dns
-            s.connect(('8.8.8.8', 0))
-            self.router_ip_address = s.getsockname()[0]
 
         print('\n**************************************')
         print('GUI')
-        print('Using router IP address: ' + self.router_ip_address)
+        print('Using Back Plane IP address: ' + self.back_plane_ip_address)
         print('**************************************')
-
-        self.subscriber_port = subscriber_port
-        self.publisher_port = publisher_port
 
         # establish the zeriomq sub and pub sockets
         self.context = zmq.Context()
         # noinspection PyUnresolvedReferences
         self.subscriber = self.context.socket(zmq.SUB)
-        connect_string = "tcp://" + self.router_ip_address + ':' + self.subscriber_port
+        connect_string = "tcp://" + self.back_plane_ip_address + ':' + self.subscriber_port
         self.subscriber.connect(connect_string)
 
         # noinspection PyUnresolvedReferences
         self.publisher = self.context.socket(zmq.PUB)
-        connect_string = "tcp://" + self.router_ip_address + ':' + self.publisher_port
+        connect_string = "tcp://" + self.back_plane_ip_address+ ':' + self.publisher_port
         self.publisher.connect(connect_string)
 
         self.set_subscriber_topic('left_encoder_tick')
@@ -229,18 +219,18 @@ class RazmqControlApp(App):
         print(value)
 
 def razmq_control_app():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-b", dest="back_plane_ip_address", default="None",
-                        help="None or IP address used by Back Plane")
+    # we can't use argparse here because of inheritance.
+    # if user wants to explicitly set the ip address: main 192.168.1.ANYTHING YOU LIKE
+    if len(sys.argv) > 1:
+        RazmqControlApp.back_plane_ip_address = sys.argv[1]
+    # argument, so just use the local host
+    else:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # use the google dns
+        s.connect(('8.8.8.8', 0))
+        RazmqControlApp.back_plane_ip_address = s.getsockname()[0]
 
-    args = parser.parse_args()
-    kw_options = {}
-
-    if args.back_plane_ip_address != 'None':
-        kw_options['back_plane_ip_address'] = args.back_plane_ip_address
-
-    RazmqControlApp(**kw_options).run()
-
+    RazmqControlApp().run()
 
 if __name__ == '__main__':
     razmq_control_app()

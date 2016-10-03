@@ -38,17 +38,17 @@ class Led(Razbase):
 
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
         """
 
-        :param router_ip_address:
+        :param back_plane_ip_address:
         :param subscriber_port:
         :param publisher_port:
 
         """
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
         # allow time for connection
         time.sleep(.03)
@@ -123,7 +123,6 @@ def led():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     led()
 

@@ -26,30 +26,22 @@ from razmq.razbase.razbase import Razbase
 
 class BuzzerTestDriver(Razbase):
     """
-    This is a test driver
+    This is a test driver for the buzzer
 
-    A user may turn on an led {'led_on': 'system_led'}
-    A user may turn off an led {'led_off': 'system_led'}
-    A user may blink an led for a specified time {'led_blink': 'system_led',
-                                                  'blink_rate_millisecs': 1000,
-                                                  'blink_duration_millisecs' : 1000 }
-
-    , turn off an led and blink an led at a specified rate for a specified
-    time
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
         """
-        :param router_ip_address:
-        :param subscriber_port:
-        :param publisher_port:
+        :param back_plane_ip_address: Ip address of the backplane
+        :param subscriber_port: backplane subscriber port address
+        :param publisher_port: backplane publisher port address
         """
 
         self.subscriber_topic = 'no_subscriber'
         self.publisher_topic = 'user_buzzer_command'
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
         # wait for connection
         time.sleep(.03)
@@ -94,6 +86,5 @@ def buzzer_test_driver():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     buzzer_test_driver()

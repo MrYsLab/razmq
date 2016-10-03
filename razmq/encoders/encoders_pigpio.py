@@ -48,7 +48,7 @@ class EncodersPigpio(Razbase):
         # initialize the base class
         super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
-        self.set_subscriber_topic('system_encoders_command')
+        self.set_subscriber_topic('system_encoder_throttle_count')
 
         self.left_encoder_pin = left_encoder_pin
         self.right_encoder_pin = right_encoder_pin
@@ -90,7 +90,7 @@ class EncodersPigpio(Razbase):
         if topic == 'system_encoder_throttle_count':
             self.throttle_count = payload['throttle_count']
         else:
-            print('SwitchBankPigpio: unexpected incoming message ' + topic + ' ' + payload)
+            print('EncoderPigpio: unexpected incoming message ' + topic + ' ' + payload)
 
     def left_encoder_callback(self, pin, level, tick):
         self.left_count += 1
@@ -139,7 +139,6 @@ def encoders_pigpio():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     encoders_pigpio()
 

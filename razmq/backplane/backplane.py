@@ -114,7 +114,5 @@ def bp():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     bp()

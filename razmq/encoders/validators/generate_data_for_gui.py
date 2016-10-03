@@ -35,9 +35,9 @@ class GenerateEncoderData(Razbase):
                  delay=1):
         """
 
-        :param router_ip_address:
-        :param subscriber_port:
-        :param publisher_port:
+        :param back_plane_ip_address: ip address of the backplane
+        :param subscriber_port: backplane subscriber ort
+        :param publisher_port: backplane publisher port
 
         """
         # initialize the base class
@@ -117,6 +117,5 @@ def generate_encoder_data():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     generate_encoder_data()

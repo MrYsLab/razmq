@@ -16,12 +16,10 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
-
 import time
 import signal
 import sys
 import argparse
-
 
 from razmq.razbase.razbase import Razbase
 
@@ -67,7 +65,7 @@ class Motors(Razbase):
     def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
         """
 
-        :param router_ip_address:
+        :param back_plane_ip_address:
         :param subscriber_port:
         :param publisher_port:
 
@@ -128,9 +126,9 @@ def motors():
     # noinspection PyShadowingNames
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-b", dest="back_plane_ip_address", default="None", help="None or IP address used by Back Plane")
+    parser.add_argument("-b", dest="back_plane_ip_address", default="None",
+                        help="None or IP address used by Back Plane")
     parser.add_argument("-n", dest="process_name", default="Motors Front End", help="Set process name in banner")
-
 
     args = parser.parse_args()
     kw_options = {}
@@ -140,14 +138,14 @@ def motors():
 
     kw_options['process_name'] = args.process_name
 
-    motors = Motors(**kw_options)
+    my_motors = Motors(**kw_options)
 
     # signal handler function called when Control-C occurs
     # noinspection PyShadowingNames,PyUnusedLocal,PyUnusedLocal
     def signal_handler(signal, frame):
         print('Control-C detected. See you soon.')
 
-        motors.clean_up()
+        my_motors.clean_up()
         sys.exit(0)
 
     # listen for SIGINT
@@ -155,7 +153,5 @@ def motors():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     motors()
-

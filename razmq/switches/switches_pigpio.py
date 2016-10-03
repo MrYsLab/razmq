@@ -34,11 +34,11 @@ class SwitchesPigpio(Razbase):
     It uses a separate callback for each switch
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', button_pin=9,
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', button_pin=9,
                  left_bumper_pin=5, right_bumper_pin=6, glitch_time=20000, process_name=None):
         """
 
-        :param router_ip_address:
+        :param back_plane_ip_address:
         :param subscriber_port:
         :param publisher_port:
         :param button_pin:
@@ -48,9 +48,9 @@ class SwitchesPigpio(Razbase):
         """
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
-        self.set_subscriber_topic('system_switch_bank_command')
+        # self.set_subscriber_topic('system_switch_bank_command')
 
         self.button_pin = button_pin
         self.left_bumper_pin = left_bumper_pin
@@ -140,7 +140,6 @@ def switches_pigpio():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     switches_pigpio()
 

@@ -31,10 +31,10 @@ class Pfc8591EnableTester(Razbase):
     This tester will send enable/disable commands to the pfc8591
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', enable=True,
+    def __init__(self, back_plane_address=None, subscriber_port='43125', publisher_port='43124', enable=True,
                  process_name=None):
         """
-        :param router_ip_address:
+        :param back_plane_address:
         :param subscriber_port:
         :param publisher_port:
         """
@@ -43,7 +43,7 @@ class Pfc8591EnableTester(Razbase):
         self.publisher_topic = 'pfc8591'
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_address, subscriber_port, publisher_port, process_name=process_name)
 
         # wait for connection
         time.sleep(.03)
@@ -86,6 +86,5 @@ def pfc8591_enable_tester():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     pfc8591_enable_tester()

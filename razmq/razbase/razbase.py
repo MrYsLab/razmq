@@ -46,14 +46,14 @@ class Razbase:
 
         :param back_plane_ip_address: razbase back_planeIP Address - if not specified, it will be set to the
                local computer
-        :param subscriber_port: razbase router subscriber port. This must match that of the razbase router
-        :param publisher_port: razbase router publisher port. This must match that of the razbase router
+        :param subscriber_port: razbase back plane subscriber port. This must match that of the razbase backplane
+        :param publisher_port: razbase back plane publisher port. This must match that of the razbase backplane
         :param process_name: Process identifier
         :return:
         """
 
         self.back_plane_ip_address = None
-        # If no router address was specified, determine the IP address of the local machine
+        # If no back plane address was specified, determine the IP address of the local machine
         if back_plane_ip_address:
             self.back_plane_ip_address = back_plane_ip_address
         else:

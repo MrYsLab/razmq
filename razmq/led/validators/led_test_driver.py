@@ -39,9 +39,9 @@ class LedTestDriver(Razbase):
     time
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', process_name=None):
         """
-        :param router_ip_address:
+        :param back_plane_id_address:
         :param subscriber_port:
         :param publisher_port:
         """
@@ -50,7 +50,7 @@ class LedTestDriver(Razbase):
         self.publisher_topic = 'user_led_command'
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
         # wait for connection
         time.sleep(.03)
@@ -112,6 +112,5 @@ def led_test_driver():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     led_test_driver()

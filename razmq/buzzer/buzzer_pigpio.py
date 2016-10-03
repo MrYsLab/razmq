@@ -34,18 +34,18 @@ class BuzzerPigpio(Razbase):
     A user may create a tone {'command': 'tone', 'frequency': FREQUENCY, 'duration': DURATION}
     """
 
-    def __init__(self, router_ip_address=None, subscriber_port='43125', publisher_port='43124', pin=10,
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124', pin=10,
                  process_name=None):
         """
 
-        :param router_ip_address:
-        :param subscriber_port:
-        :param publisher_port:
+        :param back_plane_ip_address: ip address of backplane
+        :param subscriber_port: backplane subscriber port
+        :param publisher_port: backplane publisher port
 
         """
 
         # initialize the base class
-        super().__init__(router_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
 
         self.set_subscriber_topic('system_buzzer_command')
         self.pin = pin
@@ -139,7 +139,6 @@ def buzzer_pigpio():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     buzzer_pigpio()
 

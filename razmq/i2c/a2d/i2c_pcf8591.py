@@ -36,23 +36,23 @@ class I2CPcf8591(Razbase):
 
     """
 
-    def __init__(self, hub_ip_address=None, subscriber_port='43125', publisher_port='43124',
+    def __init__(self, back_plane_ip_address=None, subscriber_port='43125', publisher_port='43124',
                  device_address=72, continuous_read=True, enabled=True, process_name=None):
         """
 
-        :param hub_ip_address: Address of the xibotics routing hub
-        :param subscriber_port: Subscriber port of XiBotHub
-        :param publisher_port: Publish port of XiBotHub
+        :param back_plane_ip_address: Address of the backplane
+        :param subscriber_port: Subscriber port of the backplane
+        :param publisher_port: Publish port of the backplane
         :param device_address: This is i2c address of this device
         :param continuous_read: Default is to have the device automatically update
                                 the IR sensor values.
         :param enabled: start or stop streaming via msgpack message described above
         """
 
-        super().__init__(hub_ip_address, subscriber_port, publisher_port, process_name=process_name)
+        super().__init__(back_plane_ip_address, subscriber_port, publisher_port, process_name=process_name)
         self.set_subscriber_topic('I2C' + str(device_address))
         self.set_subscriber_topic('pfc8591')
-        self.publisher_topic = 'i2c' + str(device_address)
+        self.publisher_topic = 'i2c_backend' + str(device_address)
 
         self.continuous_read = continuous_read
 
@@ -71,23 +71,23 @@ class I2CPcf8591(Razbase):
                 "commands": {
                     "init": [
                         {
-                            u"cmd": u"init",
+                            u"command": u"init",
                             u"device_address": device_address
                         }
                     ],
                     "read": [
                         {
-                            u"cmd": u"write_byte",
+                            u"command": u"write_byte",
                             u"device_address": device_address,
                             u"value": self.atod_channel
                         }, {
-                            u"cmd": "read_byte",
+                            u"command": "read_byte",
                             u"device_address": device_address,
                             u"report": False,
                             u"tag": 0
                         }, {
 
-                            u"cmd": "read_byte",
+                            u"command": "read_byte",
                             u"device_address": device_address,
                             u"report": True,
                             u'tag': self.atod_index
@@ -136,6 +136,7 @@ class I2CPcf8591(Razbase):
         """
 
         try:
+            # this is from the RPi
             if topic == "I2C" + str(self.device_address):
                 # data1 = payload[0]['data_files']
                 # data2 = payload[1]['data_files']
@@ -150,6 +151,7 @@ class I2CPcf8591(Razbase):
 
                 if payload['tag'] == 2:
                     self.wait_for_data = False
+            # this is from the user or gui
             elif topic == "pfc8591":
                 if payload["command"] == 'enable':
                     self.enabled = True
@@ -218,6 +220,5 @@ def i2c_pcf8591():
     signal.signal(signal.SIGTERM, signal_handler)
 
 
-# Instantiate the router and start the route loop
 if __name__ == '__main__':
     i2c_pcf8591()

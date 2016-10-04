@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='razmq',
-    version='.011',
+    version='0.1.0',
     packages=['razmq', 'razmq.data_files.lunch', 'razmq.i2c', 'razmq.i2c.validators', 'razmq.i2c.accelerometers',
               'razmq.i2c.a2d', 'razmq.encoders.validators',
               'razmq.led', 'razmq.led.validators', 'razmq.utils', 'razmq.buzzer', 'razmq.buzzer.validators',
@@ -35,12 +35,25 @@ setup(
                 'motors = razmq.motors.motors:motors',
                 'motors_pigpio = razmq.motors.motors_pigpio:motors_pigpio',
                 'switches_gpio = razmq.switches.switches_pigpio:switches_pigpio',
-                'kivy_gui = razmq.gui.kivy.main:razmq_control_app'
+                'razkv = razmq.gui.kivy.main:razmq_control_app'
             ]
         },
     url='https://github.com/MrYsLab/razmq',
     license='GNU General Public License v3 (GPLv3)',
     author='Alan Yorinks',
     author_email='MisterYsLab@gmail.com',
-    description='A Robotics Framework'
+    description='A Non-Blocking Event Driven Robotics Framework',
+    keywords=['Raspberry Pi', 'ZeroMQ', 'MessagePack', 'RedBot', ],
+        classifiers=[
+            'Development Status :: 4 - Beta',
+            'Environment :: Other Environment',
+            'Intended Audience :: Education',
+            'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+            'Operating System :: OS Independent',
+            'Programming Language :: Python :: 3.4',
+            'Topic :: Education',
+            'Topic :: Software Development',
+            'Topic :: Home Automation',
+            'Topic :: System :: Hardware'
+        ],
 )

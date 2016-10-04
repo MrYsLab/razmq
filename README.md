@@ -7,12 +7,12 @@ system used to efficiently and effectively control physical computing devices su
 the ZeroMQ distributed messaging system coupled with the MessagePack protocol messaging platform.
 
 To demonstrate its use, sample code is provided that illustrates a razmq application running on a Raspberry Pi 3 
-controlling a modifed [Sparkfun RedBot](https://www.sparkfun.com/products/12649) robot. A Kivy based GUI is provided to
-drive the robot.
+controlling a modifed [Sparkfun RedBot](https://www.sparkfun.com/products/12649) robot. 
+Construction of the modified RedBot is described [here](https://goo.gl/LSI7km).
+
+A Kivy based GUI is provided to drive the robot.
 
 ![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/GUI.png)
-
-Construction of the modified RedBot is described [here](https://goo.gl/LSI7km).
 
 
 [**Checkout the WiKi Pages**](https://github.com/MrYsLab/razmq/wiki) 

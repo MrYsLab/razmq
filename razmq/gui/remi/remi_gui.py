@@ -4,6 +4,10 @@ from remi.gui import *
 from remi import start, App
 import zmq
 import umsgpack
+import sys
+import socket
+
+import signal
 import time
 
 
@@ -20,6 +24,8 @@ class MyApp(App):
     left_btn = None
     stop_btn = None
     speed = 90
+    back_plane_ip_address = None
+
 
     def __init__(self, *args):
         super(MyApp, self).__init__(*args, static_paths=('./res/',))
@@ -316,7 +322,30 @@ class MyApp(App):
         self.publisher.send_multipart([pub_envelope, message])
 
 def razremi():
-    start(MyApp, debug=True, address='192.168.2.199', update_interval=.00001)
+    if len(sys.argv) > 1:
+        MyApp.back_plane_ip_address = sys.argv[1]
+    # argument, so just use the local host
+    else:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # use the google dns
+        s.connect(('8.8.8.8', 0))
+        MyApp.back_plane_ip_address = s.getsockname()[0]
+
+    # signal handler function called when Control-C occurs
+    # noinspection PyShadowingNames,PyUnusedLocal,PyUnusedLocal
+    def signal_handler(signal, frame):
+        print('Control-C detected. See you soon.')
+
+
+        sys.exit(0)
+
+    # listen for SIGINT
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    start(MyApp, debug=True, address=MyApp.back_plane_ip_address, update_interval=.00001)
+
+
 
 
 #Configuration
@@ -331,3 +360,4 @@ if __name__ == "__main__":
 
     # start(MyApp, debug=True, address='192.168.2.199', update_interval=.00001)
     razremi()
+

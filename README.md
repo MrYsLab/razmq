@@ -12,7 +12,11 @@ Construction of the modified RedBot is described [here](https://goo.gl/LSI7km).
 
 A Kivy based GUI is provided to drive the robot.
 
-![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/GUI.png)
+![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/GUI.png)   
+
+Also, the early stages of a remi GUI are provided as well.
+
+![](https://github.com/MrYsLab/razmq/blob/master/documentation/images/remi_gui.png)
 
 
 #[**Checkout the WiKi Pages**](https://github.com/MrYsLab/razmq/wiki) 

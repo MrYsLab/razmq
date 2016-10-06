@@ -8,7 +8,7 @@ setup(
               'razmq.led', 'razmq.led.validators', 'razmq.utils', 'razmq.buzzer', 'razmq.buzzer.validators',
               'razmq.led.validators', 'razmq.utils', 'razmq.buzzer', 'razmq.buzzer.validators', 'razmq.motors',
               'razmq.motors.validators', 'razmq.razbase', 'razmq.encoders', 'razmq.backplane', 'razmq.switches',
-              'razmq.gui', 'razmq.gui.kivy', 'razmq.gui.kivy.knob', 'razmq.gui.kivy.img'
+              'razmq.gui', 'razmq.gui.kivy', 'razmq.gui.kivy.knob', 'razmq.gui.kivy.img', 'razmq.gui.remi'
               ],
     install_requires=['pyzmq',
                       'u-msgpack-python',
@@ -35,7 +35,8 @@ setup(
                 'motors = razmq.motors.motors:motors',
                 'motors_pigpio = razmq.motors.motors_pigpio:motors_pigpio',
                 'switches_gpio = razmq.switches.switches_pigpio:switches_pigpio',
-                'razkv = razmq.gui.kivy.main:razmq_control_app'
+                'razkv = razmq.gui.kivy.main:razmq_control_app',
+                'razremi = razmq.gui.remi.remi_gui:razremi',
             ]
         },
     url='https://github.com/MrYsLab/razmq',

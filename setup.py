@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='razmq',
-    version='0.1.0',
+    version='0.1.1',
     packages=['razmq', 'razmq.data_files.lunch', 'razmq.i2c', 'razmq.i2c.validators', 'razmq.i2c.accelerometers',
               'razmq.i2c.a2d', 'razmq.encoders.validators',
               'razmq.led', 'razmq.led.validators', 'razmq.utils', 'razmq.buzzer', 'razmq.buzzer.validators',
